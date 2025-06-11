@@ -13,15 +13,41 @@ terraform {
 }
 
 provider "aws" {
-  region  = var.aws_region
+  region = var.aws_region
 }
 
 terraform {
   backend "s3" {}
 }
 
+module "chs-notification-api-alb" {
+  source = "git@github.com:companieshouse/terraform-modules//aws/application_load_balancer?ref=1.0.329"
+
+  environment             = var.environment
+  service                 = "chs-notification-api"
+  ssl_certificate_arn     = data.aws_acm_certificate.cert.arn
+  subnet_ids              = split(",", local.subnet_ids_private)
+  vpc_id                  = data.aws_vpc.vpc.id
+  idle_timeout            = 1200
+  create_security_group   = true
+  internal                = true
+  count                   = var.enable_chs_notification_api_alb ? 1 : 0
+  ingress_cidrs           = local.ingress_cidrs_private
+  ingress_prefix_list_ids = local.ingress_prefix_list_ids
+  redirect_http_to_https  = true
+  route53_domain_name     = var.domain_name
+  route53_aliases         = var.route53_aliases_chs_notification_api
+  create_route53_aliases  = var.create_route53_aliases
+  service_configuration = {
+    listener_config = {
+      default_action_type = "fixed-response"
+      port                = 443
+    }
+  }
+}
+
 module "ecs-cluster" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-cluster?ref=1.0.231"
+  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-cluster?ref=1.0.329"
 
   stack_name                  = local.stack_name
   name_prefix                 = local.name_prefix
@@ -43,7 +69,7 @@ module "ecs-cluster" {
 }
 
 module "secrets" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/secrets?ref=1.0.231"
+  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/secrets?ref=1.0.329"
 
   environment = var.environment
   name_prefix = local.name_prefix

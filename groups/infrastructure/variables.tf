@@ -14,6 +14,16 @@ variable "aws_profile" {
   description = "The AWS profile to use for deployment."
 }
 
+variable "domain_name" {
+  description = "Domain name"
+  type        = string
+}
+
+variable "cert_domain" {
+  description = "The certificate domain to use."
+  type        = string
+}
+
 # EC2
 variable "ec2_key_pair_name" {
   type        = string
@@ -71,4 +81,24 @@ variable "enable_container_insights" {
   type        = bool
   description = "A boolean value indicating whether to enable Container Insights or not"
   default     = true
+}
+
+variable "enable_chs_notification_api_alb" {
+  default     = true
+  description = "Defines whether an ALB for the chs-notification-api should be created (true) or not (false)"
+  type        = bool
+}
+
+# DNS
+
+variable "route53_aliases_chs_notification_api" {
+  type        = list(string)
+  description = "The Route53 aliases to create for chs-notification-api lb."
+  default     = []
+}
+
+variable "create_route53_aliases" {
+  default     = false
+  description = "Whether to create Route53 aliases pointing to the ALB"
+  type        = bool
 }
