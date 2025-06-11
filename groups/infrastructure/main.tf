@@ -21,7 +21,7 @@ terraform {
 }
 
 module "chs-notification-api-alb" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/application_load_balancer?ref=1.0.297"
+  source = "git@github.com:companieshouse/terraform-modules//aws/application_load_balancer?ref=1.0.329"
 
   environment             = var.environment
   service                 = "chs-notification-api"
