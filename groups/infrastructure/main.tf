@@ -47,7 +47,7 @@ module "chs-notification-api-alb" {
 }
 
 module "ecs-cluster" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-cluster?ref=1.0.231"
+  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-cluster?ref=1.0.329"
 
   stack_name                  = local.stack_name
   name_prefix                 = local.name_prefix
@@ -69,7 +69,7 @@ module "ecs-cluster" {
 }
 
 module "secrets" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/secrets?ref=1.0.231"
+  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/secrets?ref=1.0.329"
 
   environment = var.environment
   name_prefix = local.name_prefix
