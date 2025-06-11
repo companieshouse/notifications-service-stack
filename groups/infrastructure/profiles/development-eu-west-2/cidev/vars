@@ -3,3 +3,5 @@ aws_profile = "development-eu-west-2"
 enable_container_insights = true
 
 ec2_key_pair_name = "chs-cidev"
+
+route53_aliases_chs_notification_api = ["chs-notification-api]

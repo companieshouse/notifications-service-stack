@@ -72,3 +72,17 @@ variable "enable_container_insights" {
   description = "A boolean value indicating whether to enable Container Insights or not"
   default     = true
 }
+
+variable "enable_chs_notification_api_alb" {
+  default     = true
+  description = "Defines whether an ALB for the chs-notification-api should be created (true) or not (false)"
+  type        = bool
+}
+
+# DNS
+
+variable "route53_aliases_chs_notification_api" {
+  type        = list(string)
+  description = "The Route53 aliases to create for chs-notification-api lb."
+  default     = []
+}
