@@ -4,3 +4,4 @@ enable_container_insights = true
 domain_name = "aws.chdev.org"
 cert_domain = "phoenix1.aws.chdev.org"
 ec2_key_pair_name = "chs-phoenix1"
+enable_chs_notification_api_alb = false
