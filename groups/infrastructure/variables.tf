@@ -102,3 +102,16 @@ variable "create_route53_aliases" {
   description = "Whether to create Route53 aliases pointing to the ALB"
   type        = bool
 }
+
+# Scheduler variables
+variable "create_eventbridge_scheduler_group" {
+  default     = true
+  description = "Whether to create the ECS EventBridge scheduler group"
+  type        = bool
+}
+
+variable "create_eventbridge_scheduler_role" {
+  default     = true
+  description = "Whether to enable eventbridge scheduler iam role in ecs cluster."
+  type        = bool
+}
