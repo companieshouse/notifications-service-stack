@@ -15,6 +15,7 @@ locals {
   subnet_ids_private              = join(",", data.aws_subnets.private.ids)
   management_private_subnet_cidrs = [for subnet in data.aws_subnet.management : subnet.cidr_block]
   application_cidrs               = [for subnet in data.aws_subnet.private : subnet.cidr_block]
+  chs_notification_service_name   = (var.environment == "stagsbox" || var.environment == "livesbox") ? "chs-notification-ap" : "chs-notification-api"
 
   routing_subnet_ids = zipmap(
     data.aws_subnet.routing_subnets.*.availability_zone,
