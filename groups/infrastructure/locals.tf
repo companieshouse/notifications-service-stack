@@ -18,8 +18,8 @@ locals {
   chs_notification_service_name   = (var.environment == "stagsbox" || var.environment == "livesbox") ? "chs-notification-ap" : "chs-notification-api"
 
   routing_subnet_ids = zipmap(
-    data.aws_subnet.routing_subnets.*.availability_zone,
-    data.aws_subnet.routing_subnets.*.id
+    data.aws_subnet.routing_subnets[*].availability_zone,
+    data.aws_subnet.routing_subnets[*].id
   )
 
 

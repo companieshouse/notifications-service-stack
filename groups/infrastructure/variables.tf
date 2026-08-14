@@ -115,3 +115,8 @@ variable "create_eventbridge_scheduler_role" {
   description = "Whether to enable eventbridge scheduler iam role in ecs cluster."
   type        = bool
 }
+
+variable "notification_attachments_consumer_role_arns" {
+  type        = string
+  description = "ARNs of the uploader and reader task roles (from the services repo) allowed to use the attachments key"
+}
