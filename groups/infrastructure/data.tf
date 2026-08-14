@@ -100,7 +100,7 @@ data "aws_iam_policy_document" "kms_key_policy" {
     resources = ["*"]
     principals {
       type        = "AWS"
-      identifiers = [var.notification_attachments_consumer_role_arns] # need to add the role arn from the other service repo to this list
+      identifiers = local.notification_attachments_consumer_role_arns # need to add the role arn from the other service repo to this list
     }
   }
 }

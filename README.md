@@ -73,7 +73,6 @@ Infrastructure for the notifications services
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment name, defined in envrionments vars. | `string` | n/a | yes |
 | <a name="input_hashicorp_vault_password"></a> [hashicorp\_vault\_password](#input\_hashicorp\_vault\_password) | The password used when retrieving configuration from Hashicorp Vault | `string` | n/a | yes |
 | <a name="input_hashicorp_vault_username"></a> [hashicorp\_vault\_username](#input\_hashicorp\_vault\_username) | The username used when retrieving configuration from Hashicorp Vault | `string` | n/a | yes |
-| <a name="input_notification_attachments_consumer_role_arns"></a> [notification\_attachments\_consumer\_role\_arns](#input\_notification\_attachments\_consumer\_role\_arns) | ARNs of the uploader and reader task roles (from the services repo) allowed to use the attachments key | `string` | n/a | yes |
 | <a name="input_route53_aliases_chs_notification_api"></a> [route53\_aliases\_chs\_notification\_api](#input\_route53\_aliases\_chs\_notification\_api) | The Route53 aliases to create for chs-notification-api lb. | `list(string)` | `[]` | no |
 
 ## Outputs
