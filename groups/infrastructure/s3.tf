@@ -23,16 +23,3 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "notification_atta
   }
 }
 
-resource "aws_s3_bucket_lifecycle_configuration" "notification_attachments" {
-  bucket = aws_s3_bucket.notification_attachments.id
-
-  rule {
-    id = "AttachmentRetention"
-    filter {}
-    expiration {
-      days = 180
-    }
-
-    status = "Enabled"
-  }
-}
