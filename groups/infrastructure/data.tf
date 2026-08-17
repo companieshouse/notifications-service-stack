@@ -1,5 +1,3 @@
-data "aws_caller_identity" "current" {}
-
 data "vault_generic_secret" "secrets" {
   path = "applications/${var.aws_profile}/${var.environment}/${local.stack_fullname}"
 }
@@ -72,35 +70,5 @@ data "aws_subnets" "private" {
   filter {
     name   = "tag:NetworkType"
     values = ["private"]
-  }
-}
-
-data "aws_iam_policy_document" "kms_key_policy" {
-  statement {
-    sid       = "AllowRootUse"
-    effect    = "Allow"
-    actions   = ["kms:*"]
-    resources = ["*"]
-    principals {
-      type        = "AWS"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
-    }
-  }
-
-  statement {
-    sid    = "AllowAppRoleUse"
-    effect = "Allow"
-    actions = [
-      "kms:Encrypt",
-      "kms:Decrypt",
-      "kms:ReEncrypt*",
-      "kms:GenerateDataKey*",
-      "kms:DescribeKey"
-    ]
-    resources = ["*"]
-    principals {
-      type        = "AWS"
-      identifiers = local.notification_attachments_consumer_role_arns # need to add the role arn from the other service repo to this list
-    }
   }
 }

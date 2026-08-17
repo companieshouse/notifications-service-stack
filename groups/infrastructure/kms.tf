@@ -1,11 +1,14 @@
-resource "aws_kms_key" "notification_attachments_key" {
-  description             = "This key is used to encrypt objects ub the notification_attachments S3 bucket"
-  deletion_window_in_days = 30
-  policy                  = data.aws_iam_policy_document.kms_key_policy.json
-  enable_key_rotation     = true
-}
+module "notification_attachments_key" {
+  source = "git@github.com:companieshouse/terraform-modules//aws/kms?ref=1.0.408"
 
-resource "aws_kms_alias" "notification_attachments_key_alias" {
-  name          = "alias/notification-attachments-${var.environment}"
-  target_key_id = aws_kms_key.notification_attachments_key.key_id
+  description             = "Encrypts email attachments for the notifications stack"
+  kms_key_alias           = "notification-attachments-${var.environment}"
+  enable_key_rotation     = true
+  deletion_window_in_days = 30
+
+  kmsuser_principals = [
+    "role/${local.name_prefix}-upload",
+    "role/${local.name_prefix}-read",
+  ]
+
 }
