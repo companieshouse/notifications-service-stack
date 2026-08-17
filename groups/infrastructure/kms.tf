@@ -1,7 +1,7 @@
 resource "aws_kms_key" "notification_attachments_key" {
-  description             = "This key is used to encrypt bucket objects"
+  description             = "This key is used to encrypt objects ub the notification_attachments S3 bucket"
   deletion_window_in_days = 30
-  policy                  = data.aws_iam_policy_document.kms_key_policy.json // this needs to be defined!
+  policy                  = data.aws_iam_policy_document.kms_key_policy.json
   enable_key_rotation     = true
 }
 
