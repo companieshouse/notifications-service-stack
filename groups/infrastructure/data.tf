@@ -91,4 +91,19 @@ data "aws_iam_policy_document" "notifications_attachment_bucket" {
       values   = local.notification_attachments_writer_role_arns
     }
   }
+  statement {
+    sid       = "DenyHTTP"
+    effect    = "Deny"
+    actions   = ["s3:*"]
+    resources = ["${aws_s3_bucket.notification_attachments.arn}/*"]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      test     = "Bool"
+      variable = "aws:SecureTransport"
+      values   = ["false"]
+    }
+  }
 }
