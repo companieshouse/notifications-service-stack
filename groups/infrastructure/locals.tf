@@ -22,6 +22,9 @@ locals {
     data.aws_subnet.routing_subnets[*].id
   )
 
+  notification_attachments_writer_role_arns = [
+    "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${local.name_prefix}-upload",
+  ]
 
   parameter_store_secrets = {
     "web-oauth2-client-id"     = local.stack_secrets["web-oauth2-client-id"],
