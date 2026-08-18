@@ -20,7 +20,7 @@
 |------|--------|---------|
 | <a name="module_chs-notification-api-alb"></a> [chs-notification-api-alb](#module\_chs-notification-api-alb) | git@github.com:companieshouse/terraform-modules//aws/application_load_balancer | 1.0.408 |
 | <a name="module_ecs-cluster"></a> [ecs-cluster](#module\_ecs-cluster) | git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-cluster | 1.0.408 |
-| <a name="module_notification_attachments_key"></a> [notification\_attachments\_key](#module\_notification\_attachments\_key) | git@github.com:companieshouse/terraform-modules//aws/kms | remove-upper-constraint-kms-provider-version |
+| <a name="module_notification_attachments_key"></a> [notification\_attachments\_key](#module\_notification\_attachments\_key) | git@github.com:companieshouse/terraform-modules//aws/kms | 1.0.410 |
 
 ## Resources
 

@@ -1,5 +1,5 @@
 module "notification_attachments_key" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/kms?ref=1.0.408"
+  source = "git@github.com:companieshouse/terraform-modules//aws/kms?ref=1.0.410"
 
   description             = "Encrypts email attachments for the notifications stack"
   kms_key_alias           = "notification-attachments-${var.environment}"
