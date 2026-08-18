@@ -1,10 +1,9 @@
 terraform {
-  required_version = ">= 1.3.0, < 2.0.0"
-
+  required_version = ">= 1.3, < 2.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 5.0.0, < 6.0.0"
+      version = ">= 6.0, < 7.0"
     }
     vault = {
       source  = "hashicorp/vault"
@@ -68,10 +67,3 @@ module "ecs-cluster" {
   create_eventbridge_scheduler_role  = var.create_eventbridge_scheduler_role
 }
 
-module "secrets" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/parameter-store?ref=1.0.408"
-
-  name_prefix = local.name_prefix
-  secrets     = local.parameter_store_secrets
-  kms_key_id  = data.aws_kms_key.stack_configs.id
-}
