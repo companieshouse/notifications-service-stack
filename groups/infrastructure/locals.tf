@@ -7,7 +7,6 @@ locals {
 
   application_subnet_pattern      = local.stack_secrets["application_subnet_pattern"]
   application_subnet_ids          = join(",", data.aws_subnets.application.ids)
-  kms_key_alias                   = local.stack_secrets["kms_key_alias"]
   vpc_name                        = local.stack_secrets["vpc_name"]
   notify_topic_slack_endpoint     = local.stack_secrets["notify_topic_slack_endpoint"]
   ingress_cidrs_private           = concat(local.management_private_subnet_cidrs, local.application_cidrs)
@@ -18,15 +17,12 @@ locals {
   chs_notification_service_name   = (var.environment == "stagsbox" || var.environment == "livesbox") ? "chs-notification-ap" : "chs-notification-api"
 
   routing_subnet_ids = zipmap(
-    data.aws_subnet.routing_subnets.*.availability_zone,
-    data.aws_subnet.routing_subnets.*.id
+    data.aws_subnet.routing_subnets[*].availability_zone,
+    data.aws_subnet.routing_subnets[*].id
   )
 
+  notification_attachments_writer_role_arns = [
+    "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${local.name_prefix}-upload",
+  ]
 
-  parameter_store_secrets = {
-    "web-oauth2-client-id"     = local.stack_secrets["web-oauth2-client-id"],
-    "web-oauth2-client-secret" = local.stack_secrets["web-oauth2-client-secret"],
-    "web-oauth2-cookie-secret" = local.stack_secrets["web-oauth2-cookie-secret"],
-    "web-oauth2-request-key"   = local.stack_secrets["web-oauth2-request-key"]
-  }
 }

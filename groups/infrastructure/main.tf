@@ -1,27 +1,24 @@
 terraform {
-  required_version = "~> 1.3"
+  required_version = ">= 1.3, < 2.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.54.0"
+      version = ">= 6.0, < 7.0"
     }
     vault = {
       source  = "hashicorp/vault"
-      version = "~> 3.18.0"
+      version = ">= 5.0.0, < 6.0.0"
     }
   }
+  backend "s3" {}
 }
 
 provider "aws" {
   region = var.aws_region
 }
 
-terraform {
-  backend "s3" {}
-}
-
 module "chs-notification-api-alb" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/application_load_balancer?ref=1.0.329"
+  source = "git@github.com:companieshouse/terraform-modules//aws/application_load_balancer?ref=1.0.408"
 
   environment             = var.environment
   service                 = local.chs_notification_service_name
@@ -47,7 +44,7 @@ module "chs-notification-api-alb" {
 }
 
 module "ecs-cluster" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-cluster?ref=1.0.329"
+  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-cluster?ref=1.0.408"
 
   stack_name                         = local.stack_name
   name_prefix                        = local.name_prefix
@@ -70,11 +67,3 @@ module "ecs-cluster" {
   create_eventbridge_scheduler_role  = var.create_eventbridge_scheduler_role
 }
 
-module "secrets" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/secrets?ref=1.0.329"
-
-  environment = var.environment
-  name_prefix = local.name_prefix
-  secrets     = local.parameter_store_secrets
-  kms_key_id  = data.aws_kms_key.stack_configs.id
-}
