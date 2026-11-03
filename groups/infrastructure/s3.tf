@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "notification_attachments" {
-  bucket = var.create_live_bucket_name ? "${var.aws_profile}.notification-attachments-${var.environment}.ch.gov.uk" : "notification-attachments-${var.environment}"
+  bucket = "${var.aws_profile}.notification-attachments-${var.environment}.ch.gov.uk"
 }
 
 resource "aws_s3_bucket_policy" "notification_attachments" {
