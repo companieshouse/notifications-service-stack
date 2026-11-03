@@ -14,6 +14,12 @@ variable "aws_profile" {
   description = "The AWS profile to use for deployment."
 }
 
+variable "create_live_bucket_name" {
+  default     = false
+  type        = bool
+  description = "Whether to create a unique live bucket name for notification attachments."
+}
+
 variable "domain_name" {
   description = "Domain name"
   type        = string

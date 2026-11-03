@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "notification_attachments" {
-  bucket = "notification-attachments-${var.environment}"
+  bucket = var.live_bucket_name ? "${var.aws_profile}.notification-attachments-${var.environment}.ch.gov.uk" : "notification-attachments-${var.environment}"
 }
 
 resource "aws_s3_bucket_policy" "notification_attachments" {
@@ -27,4 +27,3 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "notification_atta
     bucket_key_enabled = true # Caches the key instead of calling KMS for every object
   }
 }
-
