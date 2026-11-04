@@ -1,5 +1,3 @@
-data "aws_caller_identity" "current" {}
-
 data "vault_generic_secret" "secrets" {
   path = "applications/${var.aws_profile}/${var.environment}/${local.stack_fullname}"
 }
@@ -68,38 +66,5 @@ data "aws_subnets" "private" {
   filter {
     name   = "tag:NetworkType"
     values = ["private"]
-  }
-}
-data "aws_iam_policy_document" "notifications_attachment_bucket" {
-
-  statement {
-    sid       = "RestrictWriteToAllowedRoles"
-    effect    = "Deny"
-    actions   = ["s3:PutObject", "s3:AbortMultipartUpload"]
-    resources = ["${aws_s3_bucket.notification_attachments.arn}/*"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    condition {
-      test     = "StringNotEquals"
-      variable = "aws:PrincipalArn"
-      values   = local.notification_attachments_writer_role_arns
-    }
-  }
-  statement {
-    sid       = "DenyHTTP"
-    effect    = "Deny"
-    actions   = ["s3:*"]
-    resources = ["${aws_s3_bucket.notification_attachments.arn}/*"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    condition {
-      test     = "Bool"
-      variable = "aws:SecureTransport"
-      values   = ["false"]
-    }
   }
 }

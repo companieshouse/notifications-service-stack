@@ -20,9 +20,4 @@ locals {
     data.aws_subnet.routing_subnets[*].availability_zone,
     data.aws_subnet.routing_subnets[*].id
   )
-
-  notification_attachments_writer_role_arns = [
-    "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${local.name_prefix}-upload",
-  ]
-
 }

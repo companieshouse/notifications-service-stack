@@ -1,0 +1,2 @@
+aws_profile = "live-eu-west-2"
+user_principals_envs = ["live"]

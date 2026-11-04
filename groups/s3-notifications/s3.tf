@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "notification_attachments" {
-  bucket = "${var.aws_profile}.notification-attachments-${var.environment}.ch.gov.uk"
+  bucket = "${var.aws_profile}.notification-attachments.ch.gov.uk"
 }
 
 resource "aws_s3_bucket_policy" "notification_attachments" {
