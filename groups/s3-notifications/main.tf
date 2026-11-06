@@ -26,8 +26,8 @@ module "notification_attachments_key" {
   deletion_window_in_days = 30
 
   kmsuser_principals = flatten([for env in var.user_principals_envs : [
-    "${local.stack_name}-${env}-upload",
-    "${local.stack_name}-${env}-read"
+    "role/${local.stack_name}-${env}-upload",
+    "role/${local.stack_name}-${env}-read"
   ]])
 
 }
