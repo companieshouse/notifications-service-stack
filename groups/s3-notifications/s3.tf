@@ -24,6 +24,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "notification_atta
       kms_master_key_id = module.notification_attachments_key.key_arn
       sse_algorithm     = "aws:kms"
     }
-    bucket_key_enabled = true # Caches the key instead of calling KMS for every object
+    blocked_encryption_types = ["SSE-C"]
+    bucket_key_enabled       = true # Caches the key instead of calling KMS for every object
   }
 }

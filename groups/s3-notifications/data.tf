@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "notifications_attachment_bucket" {
     condition {
       test     = "StringNotEquals"
       variable = "aws:PrincipalArn"
-      values   = local.notification_attachments_writer_role_arns
+      values   = values(local.notification_attachments_writer_role_arns)
     }
   }
   dynamic "statement" {
