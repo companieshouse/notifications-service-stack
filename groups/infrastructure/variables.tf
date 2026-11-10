@@ -3,6 +3,7 @@ variable "environment" {
   type        = string
   description = "The environment name, defined in envrionments vars."
 }
+
 variable "aws_region" {
   default     = "eu-west-2"
   type        = string
